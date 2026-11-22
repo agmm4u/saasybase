@@ -145,7 +145,7 @@ describe('scripts/load-runtime-env', () => {
       ...originalEnv,
       SECRETS_PROVIDER: 'doppler',
       SECRETS_PROVIDER_SECRETS: 'CUSTOM_PROVIDER_SECRET',
-      SECRETS_PROVIDER_COMMAND: "printf '{\"CUSTOM_PROVIDER_SECRET\":\"postgresql://example\",\"EXTRA_FLAG\":\"true\"}'",
+      SECRETS_PROVIDER_COMMAND: "node -e \"process.stdout.write(JSON.stringify({CUSTOM_PROVIDER_SECRET:'postgresql://example',EXTRA_FLAG:'true'}))\"",
     } as NodeJS.ProcessEnv;
 
     delete process.env.CUSTOM_PROVIDER_SECRET;

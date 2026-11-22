@@ -4,15 +4,10 @@ generator client {
 }
 
 datasource db {
-  // Prisma does not allow env("DATABASE_PROVIDER") here.
-  // The connector and committed migration history are provider-specific;
-  // DATABASE_URL only chooses the database instance within this provider lane.
-  provider = "sqlite"
+  // The committed Prisma migration history targets PostgreSQL. Local SQLite
+  // development remains available through the provider sync wrapper.
+  provider = "postgresql"
 }
-
-// NOTE: Using plain string fields for status/role because the SQLite connector
-// in this environment doesn't support native enums. In production (MySQL/Postgres)
-// you can switch these back to enums if desired.
 
 // Models
 model User {

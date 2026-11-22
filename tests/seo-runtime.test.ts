@@ -474,7 +474,7 @@ describe('seo runtime', () => {
     const metadata = await homePageModule.generateMetadata();
 
     expect(metadata).toMatchObject({
-      title: { absolute: 'Example SaaS — The complete Next.js SaaS boilerplate' },
+      title: { absolute: 'Example SaaS Boilerplate' },
     });
   });
 
