@@ -42,10 +42,34 @@ import { getTrafficAnalyticsClientConfig } from '../lib/traffic-analytics-config
 import { getSeoSettings } from '../lib/seo';
 import { buildSeoTitleTemplate } from '../lib/seo-shared';
 import { renderFooterText } from '../lib/footer-text';
+import { adminOnlyPublicSiteMode } from '../lib/admin-only-public-site';
 
 fontAwesomeConfig.autoAddCss = false;
 
 const THEME_INIT_SCRIPT = `(function(){try{function s(t){document.cookie='themeResolved='+t+'; Path=/; Max-Age=31536000; SameSite=Lax';}var p=localStorage.getItem('themePreference');var r=document.documentElement;if(p==='dark'){r.classList.add('dark');r.classList.remove('light');s('dark');return;}if(p==='light'){r.classList.add('light');r.classList.remove('dark');s('light');return;}r.classList.remove('light','dark');if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){r.classList.add('dark');s('dark');}else{r.classList.add('light');s('light');}}catch(e){}})();`;
+
+const REQUIRED_HEADER_LINKS: ThemeLink[] = [
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const REQUIRED_FOOTER_LINKS: ThemeLink[] = [
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Terms', href: '/terms' },
+  { label: 'Refund Policy', href: '/refund-policy' },
+];
+
+function addRequiredThemeLinks(configuredLinks: ThemeLink[], requiredLinks: ThemeLink[]): ThemeLink[] {
+  return [
+    ...requiredLinks,
+    ...configuredLinks.filter((link) => !requiredLinks.some((required) => required.href.toLowerCase() === link.href.toLowerCase())),
+  ].filter((link, index, links) => links.findIndex((candidate) => candidate.href.toLowerCase() === link.href.toLowerCase()) === index);
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   const fallbackSiteName = process.env.NEXT_PUBLIC_SITE_NAME || SETTING_DEFAULTS[SETTING_KEYS.SITE_NAME];
@@ -93,7 +117,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const faviconHref = (siteFavicon ?? '').trim() || '/favicon.ico';
   const logoHeightNum = Number(siteLogoHeight) || 48;
   const formatSettings = await getFormatSetting().catch(() => ({ mode: 'short' as const, timezone: undefined }));
-  const [headerLinks, footerLinks, footerText, customCss, customHeadSnippet, customBodySnippet, colorPalette, headerLayoutSettings] = await Promise.all([
+  const [configuredHeaderLinks, configuredFooterLinks, footerText, customCss, customHeadSnippet, customBodySnippet, colorPalette, headerLayoutSettings] = await Promise.all([
     getThemeHeaderLinks().catch(() => [] as ThemeLink[]),
     getThemeFooterLinks().catch(() => [] as ThemeLink[]),
     getThemeFooterText(siteName).catch(() => `© ${new Date().getFullYear()} ${siteName}`),
@@ -103,6 +127,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     getThemeColorPalette(),
     getHeaderLayoutSettings()
   ]);
+  const publicHeaderLinks = configuredHeaderLinks.filter((link) => link.href !== '/dashboard' && link.href !== '/admin');
+  const publicFooterLinks = configuredFooterLinks.filter((link) => link.href !== '/dashboard' && link.href !== '/admin');
+  const headerLinks = addRequiredThemeLinks(publicHeaderLinks, REQUIRED_HEADER_LINKS);
+  const footerLinks = addRequiredThemeLinks(publicFooterLinks, REQUIRED_FOOTER_LINKS);
+  const legalHrefs = new Set(['/privacy', '/terms', '/refund-policy']);
+  const legalFooterLinks = footerLinks.filter((link) => legalHrefs.has(link.href));
+  const footerExploreLinks = headerLinks.filter((link) => link.href !== '/');
+  const footerExtraLinks = footerLinks.filter((link) => !legalHrefs.has(link.href) && !footerExploreLinks.some((explore) => explore.href === link.href));
+  const renderFooterLink = (link: ThemeLink) => (
+    /^https?:\/\//i.test(link.href) ? (
+      <a key={`${link.label}-${link.href}`} href={link.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-violet-700 dark:hover:text-violet-300">
+        {link.label}
+      </a>
+    ) : (
+      <Link key={`${link.label}-${link.href}`} href={link.href} className="transition-colors hover:text-violet-700 dark:hover:text-violet-300">
+        {link.label}
+      </Link>
+    )
+  );
 
   const parseHexColor = (hex: string): { rgb: string; a: number } => {
     const clean = (hex || '').trim().replace(/^#/, '');
@@ -399,23 +442,57 @@ gtag('config', '${gaMeasurementId}', { anonymize_ip: true, send_page_view: false
             />
             {children}
           </main>
-          <footer className="p-6 border-t border-neutral-200 text-center dark:border-neutral-800">
-            {footerLinks.length ? (
-              <nav className="mb-3 flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-500 dark:text-neutral-400">
-                {footerLinks.map((link) => (
-                  /^https?:\/\//i.test(link.href) ? (
-                    <a key={`${link.label}-${link.href}`} href={link.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-neutral-700 dark:hover:text-neutral-200">
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link key={`${link.label}-${link.href}`} href={link.href} className="transition-colors hover:text-neutral-700 dark:hover:text-neutral-200">
-                      {link.label}
-                    </Link>
-                  )
-                ))}
-              </nav>
-            ) : null}
-            <div className="text-xs text-neutral-500 dark:text-neutral-400">{renderFooterText(footerText)}</div>
+          <footer className="mt-8 border-t border-neutral-200 bg-white/70 dark:border-neutral-800 dark:bg-neutral-950/50">
+            <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1fr] lg:px-10 lg:py-14">
+              <div className="max-w-sm">
+                <Link href="/" className="inline-flex items-center gap-3 text-lg font-semibold tracking-tight text-neutral-950 dark:text-white">
+                  <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-700 text-sm font-bold text-white">S</span>
+                  <span>{siteName}</span>
+                </Link>
+                <p className="mt-4 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+                  The connected foundation for customer accounts, billing, teams, and the tools you need to grow your SaaS.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold">
+                  <Link href="/pricing" className="rounded-lg bg-violet-700 px-4 py-2.5 text-white transition hover:bg-violet-800">Explore plans</Link>
+                  <Link href="/contact" className="rounded-lg border border-neutral-300 px-4 py-2.5 text-neutral-800 transition hover:bg-neutral-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-900">Contact us</Link>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-900 dark:text-neutral-100">Explore</h2>
+                <nav aria-label="Explore" className="mt-4 flex flex-col items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  {footerExploreLinks.map(renderFooterLink)}
+                  {footerExtraLinks.map(renderFooterLink)}
+                </nav>
+              </div>
+
+              <div>
+                <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-900 dark:text-neutral-100">Policies</h2>
+                <nav aria-label="Policies" className="mt-4 flex flex-col items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  {legalFooterLinks.map(renderFooterLink)}
+                </nav>
+              </div>
+
+              <div>
+                <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-neutral-900 dark:text-neutral-100">Your account</h2>
+                <nav aria-label="Account" className="mt-4 flex flex-col items-start gap-3 text-sm text-neutral-600 dark:text-neutral-400">
+                  <Link href="/sign-in" className="transition-colors hover:text-violet-700 dark:hover:text-violet-300">Sign in</Link>
+                  {!adminOnlyPublicSiteMode ? (
+                    <Link href="/sign-up" className="transition-colors hover:text-violet-700 dark:hover:text-violet-300">Create an account</Link>
+                  ) : null}
+                  {footerLinks.some((link) => link.href === '/contact') ? (
+                    <Link href="/contact" className="transition-colors hover:text-violet-700 dark:hover:text-violet-300">Get help</Link>
+                  ) : null}
+                </nav>
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-200 dark:border-neutral-800">
+              <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-5 py-5 text-xs text-neutral-500 dark:text-neutral-400 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
+                <div>{renderFooterText(footerText)}</div>
+                <p>Made for teams building what&apos;s next.</p>
+              </div>
+            </div>
             {enableBackgroundRefreshChecks ? <OrgValidityCheck /> : null}
             {enableBackgroundRefreshChecks ? <TokenExpiryCleanupPing /> : null}
           </footer>

@@ -61,6 +61,7 @@ docker-compose.override.yml
 Dockerfile.dev
 
 # SQLite DBs
+*.db
 *.sqlite
 *.sqlite3
 /prisma/dev.db

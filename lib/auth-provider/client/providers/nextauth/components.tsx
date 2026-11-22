@@ -180,7 +180,7 @@ function getResetPasswordParams() {
   }
 
   const params = new URLSearchParams(window.location.search);
-  if (params.get('mode') === 'reset-password') {
+  if (params.get('mode') === 'reset-password' || window.location.pathname === '/reset-password') {
     return {
       mode: 'reset-password' as SignInMode,
       token: params.get('token') || '',
@@ -377,9 +377,27 @@ export function AuthSignIn(props: {
     <SignInForm
       redirectUrl={redirectUrl}
       signUpUrl={props.signUpUrl}
-      onForgotPassword={() => setMode('forgot-password')}
+      onForgotPassword={() => {
+        window.location.href = '/forgot-password';
+      }}
       onUseMagicLink={() => setMode('magic-link')}
       onMagicLinkSentChange={props.onMagicLinkSentChange}
+    />
+  );
+}
+
+export function AuthForgotPassword() {
+  return <ForgotPasswordForm onBack={() => { window.location.href = '/sign-in'; }} />;
+}
+
+export function AuthResetPassword() {
+  const resetParams = getResetPasswordParams();
+  return (
+    <ResetPasswordForm
+      initialToken={resetParams.token}
+      initialEmail={resetParams.email}
+      onBack={() => { window.location.href = '/sign-in'; }}
+      onSuccess={() => { window.location.href = '/sign-in?reset=success'; }}
     />
   );
 }

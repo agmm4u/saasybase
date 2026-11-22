@@ -430,7 +430,6 @@ export type CouponRedemptionCreateOrConnectWithoutUserInput = {
 
 export type CouponRedemptionCreateManyUserInputEnvelope = {
   data: Prisma.CouponRedemptionCreateManyUserInput | Prisma.CouponRedemptionCreateManyUserInput[]
-  skipDuplicates?: boolean
 }
 
 export type CouponRedemptionUpsertWithWhereUniqueWithoutUserInput = {
@@ -481,7 +480,6 @@ export type CouponRedemptionCreateOrConnectWithoutCouponInput = {
 
 export type CouponRedemptionCreateManyCouponInputEnvelope = {
   data: Prisma.CouponRedemptionCreateManyCouponInput | Prisma.CouponRedemptionCreateManyCouponInput[]
-  skipDuplicates?: boolean
 }
 
 export type CouponRedemptionUpsertWithWhereUniqueWithoutCouponInput = {
@@ -1286,7 +1284,6 @@ export type CouponRedemptionCreateManyArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many CouponRedemptions.
    */
   data: Prisma.CouponRedemptionCreateManyInput | Prisma.CouponRedemptionCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1305,7 +1302,6 @@ export type CouponRedemptionCreateManyAndReturnArgs<ExtArgs extends runtime.Type
    * The data used to create many CouponRedemptions.
    */
   data: Prisma.CouponRedemptionCreateManyInput | Prisma.CouponRedemptionCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

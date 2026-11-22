@@ -496,7 +496,6 @@ export type AdminActionLogCreateOrConnectWithoutActorInput = {
 
 export type AdminActionLogCreateManyActorInputEnvelope = {
   data: Prisma.AdminActionLogCreateManyActorInput | Prisma.AdminActionLogCreateManyActorInput[]
-  skipDuplicates?: boolean
 }
 
 export type AdminActionLogCreateWithoutTargetInput = {
@@ -526,7 +525,6 @@ export type AdminActionLogCreateOrConnectWithoutTargetInput = {
 
 export type AdminActionLogCreateManyTargetInputEnvelope = {
   data: Prisma.AdminActionLogCreateManyTargetInput | Prisma.AdminActionLogCreateManyTargetInput[]
-  skipDuplicates?: boolean
 }
 
 export type AdminActionLogUpsertWithWhereUniqueWithoutActorInput = {
@@ -1403,7 +1401,6 @@ export type AdminActionLogCreateManyArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many AdminActionLogs.
    */
   data: Prisma.AdminActionLogCreateManyInput | Prisma.AdminActionLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1422,7 +1419,6 @@ export type AdminActionLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.
    * The data used to create many AdminActionLogs.
    */
   data: Prisma.AdminActionLogCreateManyInput | Prisma.AdminActionLogCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

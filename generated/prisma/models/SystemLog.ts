@@ -1016,7 +1016,6 @@ export type SystemLogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many SystemLogs.
    */
   data: Prisma.SystemLogCreateManyInput | Prisma.SystemLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1035,7 +1034,6 @@ export type SystemLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many SystemLogs.
    */
   data: Prisma.SystemLogCreateManyInput | Prisma.SystemLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**

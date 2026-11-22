@@ -25,6 +25,8 @@ import type { AuthProviderProps } from '../../types';
 
 export const AuthSignIn = SignIn;
 export const AuthSignUp = SignUp;
+export const AuthForgotPassword = SignIn;
+export const AuthResetPassword = SignIn;
 export const AuthSignInButton = SignInButton;
 export const AuthSignUpButton = SignUpButton;
 export const AuthSignOutButton = SignOutButton;

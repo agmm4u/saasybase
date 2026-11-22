@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAuthUser, useAuthSession, useAuthInstance, AuthSignInButton, AuthSignUpButton, AuthOrganizationSwitcher } from '@/lib/auth-provider/client';
+import { useAuthUser, useAuthSession, useAuthInstance, AuthOrganizationSwitcher } from '@/lib/auth-provider/client';
 import { getOrganizationSwitcherAppearance } from '@/lib/auth-provider/client/clerk-appearance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faRightFromBracket, faCrown, faCoins, faCalendarDays, faBars, faFileInvoiceDollar, faSackDollar } from '@fortawesome/free-solid-svg-icons';
@@ -400,32 +400,20 @@ export default function AccountMenu() {
                   </p>
                 </div>
 
-                <div className="mt-2 text-center text-sm">
-                  <AuthSignInButton mode="modal">
-                    <button className="w-full rounded-xl bg-violet-600 px-4 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500/40">
-                      Sign In
-                    </button>
-                  </AuthSignInButton>
-                </div>
-
-                <div className="relative py-0.5">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
-                  </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-3 text-[11px] font-medium tracking-[0.2em] text-neutral-500 dark:bg-neutral-900 dark:text-neutral-400">
-                      or
-                    </span>
-                  </div>
-                </div>
-
-                <div className="text-center text-sm">
-                  <AuthSignUpButton mode="modal">
-                    <button className="w-full rounded-xl border border-neutral-200 px-4 py-3.5 text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800">
-                      Create Account
-                    </button>
-                  </AuthSignUpButton>
-                </div>
+                <TransientNavLink
+                  href="/sign-in"
+                  className="block w-full rounded-xl bg-violet-600 px-4 py-3.5 text-center text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-500/40"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Sign in
+                </TransientNavLink>
+                <TransientNavLink
+                  href="/sign-up"
+                  className="block w-full rounded-xl border border-neutral-200 px-4 py-3.5 text-center text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:border-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-800"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Create account
+                </TransientNavLink>
               </div>
             </div>
 

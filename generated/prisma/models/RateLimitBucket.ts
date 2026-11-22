@@ -1290,7 +1290,6 @@ export type RateLimitBucketCreateManyArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many RateLimitBuckets.
    */
   data: Prisma.RateLimitBucketCreateManyInput | Prisma.RateLimitBucketCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1309,7 +1308,6 @@ export type RateLimitBucketCreateManyAndReturnArgs<ExtArgs extends runtime.Types
    * The data used to create many RateLimitBuckets.
    */
   data: Prisma.RateLimitBucketCreateManyInput | Prisma.RateLimitBucketCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**

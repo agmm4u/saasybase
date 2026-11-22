@@ -60,7 +60,7 @@ describe('POST /api/auth/forgot-password', () => {
     });
     expect(sendEmailMock).toHaveBeenCalledWith(expect.objectContaining({
       variables: expect.objectContaining({
-        actionUrl: expect.stringContaining('https://public-preview.example.test/sign-in?mode=reset-password&token='),
+        actionUrl: expect.stringContaining('https://public-preview.example.test/reset-password?token='),
         dashboardUrl: 'https://public-preview.example.test/dashboard',
       }),
     }));

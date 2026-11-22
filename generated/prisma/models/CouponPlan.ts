@@ -382,7 +382,6 @@ export type CouponPlanCreateOrConnectWithoutPlanInput = {
 
 export type CouponPlanCreateManyPlanInputEnvelope = {
   data: Prisma.CouponPlanCreateManyPlanInput | Prisma.CouponPlanCreateManyPlanInput[]
-  skipDuplicates?: boolean
 }
 
 export type CouponPlanUpsertWithWhereUniqueWithoutPlanInput = {
@@ -427,7 +426,6 @@ export type CouponPlanCreateOrConnectWithoutCouponInput = {
 
 export type CouponPlanCreateManyCouponInputEnvelope = {
   data: Prisma.CouponPlanCreateManyCouponInput | Prisma.CouponPlanCreateManyCouponInput[]
-  skipDuplicates?: boolean
 }
 
 export type CouponPlanUpsertWithWhereUniqueWithoutCouponInput = {
@@ -1204,7 +1202,6 @@ export type CouponPlanCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many CouponPlans.
    */
   data: Prisma.CouponPlanCreateManyInput | Prisma.CouponPlanCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1223,7 +1220,6 @@ export type CouponPlanCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many CouponPlans.
    */
   data: Prisma.CouponPlanCreateManyInput | Prisma.CouponPlanCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

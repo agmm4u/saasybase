@@ -18,6 +18,8 @@ const _mod: Record<string, any> = process.env.NEXT_PUBLIC_AUTH_PROVIDER === 'bet
 
 export const AuthSignIn = _mod.AuthSignIn;
 export const AuthSignUp = _mod.AuthSignUp;
+export const AuthForgotPassword = _mod.AuthForgotPassword;
+export const AuthResetPassword = _mod.AuthResetPassword;
 export const AuthSignInButton = _mod.AuthSignInButton;
 export const AuthSignUpButton = _mod.AuthSignUpButton;
 export const AuthSignOutButton = _mod.AuthSignOutButton;

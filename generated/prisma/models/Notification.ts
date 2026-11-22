@@ -452,7 +452,6 @@ export type NotificationCreateOrConnectWithoutUserInput = {
 
 export type NotificationCreateManyUserInputEnvelope = {
   data: Prisma.NotificationCreateManyUserInput | Prisma.NotificationCreateManyUserInput[]
-  skipDuplicates?: boolean
 }
 
 export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -1265,7 +1264,6 @@ export type NotificationCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
    * The data used to create many Notifications.
    */
   data: Prisma.NotificationCreateManyInput | Prisma.NotificationCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1284,7 +1282,6 @@ export type NotificationCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * The data used to create many Notifications.
    */
   data: Prisma.NotificationCreateManyInput | Prisma.NotificationCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     // Build reset URL
     const baseUrl = resolveRequestOrigin(request);
-    const resetUrl = `${baseUrl}/sign-in?mode=reset-password&token=${rawToken}&email=${encodeURIComponent(normalizedEmail)}`;
+    const resetUrl = `${baseUrl}/reset-password?token=${rawToken}&email=${encodeURIComponent(normalizedEmail)}`;
 
     const result = await sendEmail({
       to: normalizedEmail,

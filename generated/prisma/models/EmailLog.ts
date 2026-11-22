@@ -452,7 +452,6 @@ export type EmailLogCreateOrConnectWithoutUserInput = {
 
 export type EmailLogCreateManyUserInputEnvelope = {
   data: Prisma.EmailLogCreateManyUserInput | Prisma.EmailLogCreateManyUserInput[]
-  skipDuplicates?: boolean
 }
 
 export type EmailLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -1265,7 +1264,6 @@ export type EmailLogCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many EmailLogs.
    */
   data: Prisma.EmailLogCreateManyInput | Prisma.EmailLogCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1284,7 +1282,6 @@ export type EmailLogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many EmailLogs.
    */
   data: Prisma.EmailLogCreateManyInput | Prisma.EmailLogCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -184,13 +184,12 @@ function readSignInQueryState() {
   };
 }
 
-function getResetRedirectTarget(path?: string) {
+function getResetRedirectTarget() {
   if (typeof window === 'undefined') {
-    return '/sign-in?mode=reset-password';
+    return '/reset-password';
   }
 
-  const resolvedPath = getBasePath(path, '/sign-in');
-  return `${window.location.origin}${resolvedPath}?mode=reset-password`;
+  return `${window.location.origin}/reset-password`;
 }
 
 function readUrlMode(pathnameFallback: AuthModalMode): AuthModalMode {
@@ -639,7 +638,7 @@ function SignInForm({
         <div className="flex items-center justify-between gap-4 text-sm">
           <button
             type="button"
-            onClick={() => onSwitch ? onSwitch('forgot-password') : (window.location.href = `${getBasePath(path, '/sign-in')}?mode=forgot-password`)}
+            onClick={() => onSwitch ? onSwitch('forgot-password') : (window.location.href = '/forgot-password')}
             className={authAccentLinkClass}
           >
             Forgot password?
@@ -949,7 +948,7 @@ function ForgotPasswordForm({
 
     const result = await betterAuthClient.requestPasswordReset({
       email,
-      redirectTo: getResetRedirectTarget(path),
+      redirectTo: getResetRedirectTarget(),
     }) as AuthActionResult;
 
     setPending(false);
@@ -1217,6 +1216,14 @@ export function AuthSignIn({
       path={path}
     />
   );
+}
+
+export function AuthForgotPassword() {
+  return <ForgotPasswordForm path="/sign-in" />;
+}
+
+export function AuthResetPassword() {
+  return <ResetPasswordForm path="/sign-in" />;
 }
 
 export function AuthSignUp({

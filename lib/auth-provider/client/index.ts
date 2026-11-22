@@ -27,6 +27,8 @@ export { useAuthUser, useAuthSession, useAuthInstance } from './hooks';
 export {
   AuthSignIn,
   AuthSignUp,
+  AuthForgotPassword,
+  AuthResetPassword,
   AuthSignInButton,
   AuthSignUpButton,
   AuthSignOutButton,

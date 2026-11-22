@@ -2,6 +2,7 @@ import { AuthSignUp } from '@/lib/auth-provider/client';
 import { getAuthFormAppearance } from '@/lib/auth-provider/client/clerk-appearance';
 import { AuthLoadingSkeleton } from '@/components/ui/AuthLoadingSkeleton';
 import { AuthFormWrapper } from '@/components/ui/AuthFormWrapper';
+import { AuthPageShell } from '@/components/auth/AuthPageShell';
 import { authService } from '@/lib/auth-provider';
 import { adminOnlyPublicSiteMode } from '@/lib/admin-only-public-site';
 import { sanitizeReturnPath } from '@/lib/route-guards';
@@ -20,7 +21,7 @@ interface SignUpPageProps {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }
 
-const pageCardClass = 'w-full rounded-2xl border border-neutral-200 bg-white p-6 shadow-2xl shadow-black/10 dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-black/40';
+const pageCardClass = 'w-full rounded-2xl border border-neutral-200 bg-white p-6 shadow-xl shadow-slate-900/5 dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-black/30';
 
 export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const resolvedSearchParams = await searchParams;
@@ -39,16 +40,11 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
   const signInUrl = `/sign-in?redirect_url=${encodeURIComponent(redirectPath)}`;
 
   return (
-    <div className="flex justify-center px-4 py-10 sm:px-6 lg:px-8">
-      <div className="w-full max-w-[28rem] space-y-8 mt-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-white">
-            Create your account
-          </h2>
-          <p className="mt-2 text-sm text-neutral-400">
-            Start your journey with our platform
-          </p>
-        </div>
+    <AuthPageShell
+      eyebrow="Get started"
+      title="Create your account"
+      description="Set up your account and get straight to building with your SaaS workspace."
+    >
         <AuthFormWrapper fallback={<AuthLoadingSkeleton />}>
           <div className="flex justify-center">
             <div className={isNextAuth ? pageCardClass : 'w-full'}>
@@ -64,7 +60,6 @@ export default async function SignUpPage({ searchParams }: SignUpPageProps) {
             </div>
           </div>
         </AuthFormWrapper>
-      </div>
-    </div>
+    </AuthPageShell>
   );
 }

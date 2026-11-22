@@ -504,7 +504,6 @@ export type SupportTicketCreateOrConnectWithoutUserInput = {
 
 export type SupportTicketCreateManyUserInputEnvelope = {
   data: Prisma.SupportTicketCreateManyUserInput | Prisma.SupportTicketCreateManyUserInput[]
-  skipDuplicates?: boolean
 }
 
 export type SupportTicketUpsertWithWhereUniqueWithoutUserInput = {
@@ -1429,7 +1428,6 @@ export type SupportTicketCreateManyArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many SupportTickets.
    */
   data: Prisma.SupportTicketCreateManyInput | Prisma.SupportTicketCreateManyInput[]
-  skipDuplicates?: boolean
 }
 
 /**
@@ -1448,7 +1446,6 @@ export type SupportTicketCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * The data used to create many SupportTickets.
    */
   data: Prisma.SupportTicketCreateManyInput | Prisma.SupportTicketCreateManyInput[]
-  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
