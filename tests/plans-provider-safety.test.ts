@@ -83,12 +83,26 @@ describe('plan provider safety', () => {
 
     expect(prismaMock.plan.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
-        where: { name: 'Quarterly Pro' },
+        where: { name: 'Weekly Pro' },
         update: expect.objectContaining({
-          shortDescription: 'Save 20%',
+          shortDescription: 'Weekly access, billed every week.',
         }),
         create: expect.objectContaining({
-          shortDescription: 'Save 20%',
+          shortDescription: 'Weekly access, billed every week.',
+        }),
+      })
+    );
+
+    expect(prismaMock.plan.upsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { name: 'Daily Pro' },
+        update: expect.objectContaining({
+          recurringInterval: 'day',
+          priceCents: 100,
+        }),
+        create: expect.objectContaining({
+          recurringInterval: 'day',
+          priceCents: 100,
         }),
       })
     );
