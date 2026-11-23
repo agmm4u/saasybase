@@ -14,7 +14,7 @@ import { enforceTeamWorkspaceProvisioningGuard } from '../../../../lib/dashboard
 export async function generateMetadata() {
   return buildDashboardMetadata({
     page: 'Support',
-    description: 'Open tickets, track responses, and stay connected with the SaaSyBase support team from your dashboard.',
+    description: 'Open tickets, track responses, and stay connected with the YOUNG AGE CORPORATION CO., LTD. support team from your dashboard.',
     audience: 'user',
   });
 }

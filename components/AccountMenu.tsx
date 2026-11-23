@@ -393,7 +393,7 @@ export default function AccountMenu() {
               <div className="space-y-5">
                 <div className="space-y-2.5 pr-2">
                   <h3 className="text-[1.15rem] font-semibold leading-tight text-neutral-900 dark:text-neutral-100">
-                    Welcome to {siteInfo?.siteName || process.env.NEXT_PUBLIC_SITE_NAME || 'SaaSyBase'}
+                    Welcome to {siteInfo?.siteName || process.env.NEXT_PUBLIC_SITE_NAME || 'YOUNG AGE CORPORATION CO., LTD.'}
                   </h3>
                   <p className="text-sm leading-6 text-neutral-600 dark:text-neutral-400">
                     Sign in to access your account, view your plan, and manage {siteInfo?.tokenLabel || 'tokens'}.

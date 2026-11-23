@@ -922,7 +922,7 @@ export function ColorTabContent({
             <div className="flex items-center gap-2">
               <div className="h-6 w-6 rounded-md flex-shrink-0 sm:h-5 sm:w-5" style={{ backgroundColor: colors.accentPrimary }} />
               <span className="text-sm font-semibold tracking-tight sm:text-xs sm:font-bold" style={{ color: colors.headerText }}>
-                SaaSyBase
+                YOUNG AGE CORPORATION CO., LTD.
               </span>
             </div>
             {/* Nav links */}
@@ -984,7 +984,7 @@ export function ColorTabContent({
             <div className="flex items-center gap-2">
               <div className="h-4 w-4 rounded flex-shrink-0" style={{ backgroundColor: colors.accentPrimary }} />
               <span className="text-[10px] font-bold tracking-tight" style={{ color: colors.stickyHeaderText }}>
-                SaaSyBase
+                YOUNG AGE CORPORATION CO., LTD.
               </span>
               <span
                 className="ml-1 rounded-full border px-1.5 py-px text-[9px] leading-tight"

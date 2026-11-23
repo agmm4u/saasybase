@@ -22,7 +22,7 @@ interface PageProps {
 export async function generateMetadata() {
   return buildDashboardMetadata({
     page: 'Profile',
-    description: 'Manage profile details, preferences, and subscription insights from your SaaSyBase account hub.',
+    description: 'Manage profile details, preferences, and subscription insights from your YOUNG AGE CORPORATION CO., LTD. account hub.',
     audience: 'user',
   });
 }

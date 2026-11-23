@@ -72,7 +72,7 @@ export default function PublicExportHomePage() {
             <span className="block text-violet-700 dark:text-violet-300">Skip the setup grind.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 dark:text-neutral-300 sm:text-lg sm:leading-8">
-            SaaSyBase gives your product the essential foundation—accounts, plans, billing, teams, and admin tools—so you can focus on the experience only you can build.
+            YOUNG AGE CORPORATION CO., LTD. gives your product the essential foundation—accounts, plans, billing, teams, and admin tools—so you can focus on the experience only you can build.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link

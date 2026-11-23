@@ -89,7 +89,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
         accent="theme"
         eyebrow="Demo app"
         eyebrowIcon={<FontAwesomeIcon icon={faBolt} />}
-        title="SaaSyBase Demo App"
+        title="YOUNG AGE CORPORATION CO., LTD. Demo App"
         stats={[
           {
             label: 'Personal',

@@ -26,7 +26,7 @@ interface PageProps {
 export async function generateMetadata() {
   return buildDashboardMetadata({
     page: 'Transactions',
-    description: 'Review charges, refunds, and coupon usage with export-ready records from your SaaSyBase billing history.',
+    description: 'Review charges, refunds, and coupon usage with export-ready records from your YOUNG AGE CORPORATION CO., LTD. billing history.',
     audience: 'user',
   });
 }

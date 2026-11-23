@@ -11,7 +11,7 @@ interface PageProps {
 export async function generateMetadata() {
   return buildDashboardMetadata({
     page: 'Settings',
-    description: 'Adjust dashboard preferences and personalized settings within your SaaSyBase account.',
+    description: 'Adjust dashboard preferences and personalized settings within your YOUNG AGE CORPORATION CO., LTD. account.',
     audience: 'user',
   });
 }

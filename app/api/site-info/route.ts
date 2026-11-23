@@ -10,7 +10,7 @@ export async function GET() {
     ]);
 
     return NextResponse.json({
-      siteName: siteName || process.env.NEXT_PUBLIC_SITE_NAME || 'SaaSyBase',
+      siteName: siteName || process.env.NEXT_PUBLIC_SITE_NAME || 'YOUNG AGE CORPORATION CO., LTD.',
       tokenLabel: defaultTokenLabel
     });
   } catch (error) {

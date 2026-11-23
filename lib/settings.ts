@@ -630,7 +630,7 @@ export const SETTING_DEFAULTS = {
   [SETTING_KEYS.SITE_LOGO_DARK]: '',
   [SETTING_KEYS.SITE_LOGO_HEIGHT]: '48',
   [SETTING_KEYS.SITE_FAVICON]: '',
-  [SETTING_KEYS.SITE_NAME]: 'SaaSyBase',
+  [SETTING_KEYS.SITE_NAME]: 'YOUNG AGE CORPORATION CO., LTD.',
     [SETTING_KEYS.SUPPORT_EMAIL]: 'support@saasybase.com',
   [SETTING_KEYS.DEFAULT_TOKEN_LABEL]: 'tokens',
   // When true, admin replies will automatically set an OPEN ticket to IN_PROGRESS

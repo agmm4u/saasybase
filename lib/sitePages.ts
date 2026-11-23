@@ -205,7 +205,7 @@ export async function ensureCorePages(): Promise<void> {
       // content consistent with the admin-configured SUPPORT_EMAIL.
       const supportEmail = await getSupportEmail().catch(() => process.env.SUPPORT_EMAIL || 'support@saasybase.com');
       const partnersEmail = process.env.PARTNERS_EMAIL || 'partners@saasybase.com';
-      const siteName = await getSiteName().catch(() => process.env.NEXT_PUBLIC_SITE_NAME || 'SaaSyBase');
+      const siteName = await getSiteName().catch(() => process.env.NEXT_PUBLIC_SITE_NAME || 'YOUNG AGE CORPORATION CO., LTD.');
 
       const contentWithEmails = String(definition.content)
         .replace(/support@saasybase\.com/gi, supportEmail)

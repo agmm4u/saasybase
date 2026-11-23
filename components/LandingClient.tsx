@@ -360,13 +360,13 @@ function DashboardDemo() {
             {/* mobile header – visible only on small screens */}
             <div className="lp-dd-mobile-hdr">
               <FontAwesomeIcon icon={faBars} style={{ fontSize: 14, color: 'var(--lp-dd-nav-text)' }} />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: '-.3px' }}>SaasyBase</span>
+              <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: '-.3px' }}>YOUNG AGE CORPORATION CO., LTD.</span>
               <span style={{ marginLeft: 'auto', fontSize: 9, color: 'var(--lp-dd-muted)', fontWeight: 500 }}>Admin Panel</span>
             </div>
             {/* sidebar */}
             <nav className="lp-dd-sidebar" style={{ width: 174, background: 'var(--lp-dd-sidebar-bg)', borderRight: '1px solid var(--lp-dd-sidebar-border)', padding: '12px 0', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 0, overflow: 'hidden' }}>
               {/* Brand */}
-              <div style={{ padding: '0 14px 10px', fontSize: 13, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: 0.3 }}>SaasyBase</div>
+              <div style={{ padding: '0 14px 10px', fontSize: 13, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: 0.3 }}>YOUNG AGE CORPORATION CO., LTD.</div>
               {/* ADMIN section label */}
               <div style={{ padding: '2px 14px 3px', fontSize: 9, fontWeight: 700, color: 'var(--lp-dd-col-hdr)', letterSpacing: 1, textTransform: 'uppercase' }}>ADMIN</div>
               {/* Overview */}
@@ -1307,7 +1307,7 @@ export default function LandingClient({ isSignedIn }: { isSignedIn: boolean }) {
           </h1>
 
           <p className="lp-hero-sub">
-            SaasyBase is a production-ready Next.js boilerplate — auth, multi-provider payments, subscriptions, teams, admin, and more. Everything you need to go from zero to revenue.
+            YOUNG AGE CORPORATION CO., LTD. is a production-ready Next.js boilerplate — auth, multi-provider payments, subscriptions, teams, admin, and more. Everything you need to go from zero to revenue.
           </p>
 
           <div className="lp-cta-row">
@@ -1447,7 +1447,7 @@ export default function LandingClient({ isSignedIn }: { isSignedIn: boolean }) {
           <h2 className="lp-section-h2" style={{ marginBottom: 12 }}>Your SaaS deserves a<br />solid foundation.</h2>
           <p className="lp-cta-desc">
             Stop rebuilding the same auth &amp; billing infrastructure.<br />
-            Start with SaasyBase and ship what actually matters.
+            Start with YOUNG AGE CORPORATION CO., LTD. and ship what actually matters.
           </p>
           <div className="lp-cta-row" style={{ marginTop: 0 }}>
             {isSignedIn ? (

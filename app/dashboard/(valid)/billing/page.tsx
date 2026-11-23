@@ -543,7 +543,7 @@ export default async function BillingPage({ searchParams }: PageProps) {
               <span className="text-lg">🔒</span>
               <p className="font-semibold text-slate-800 dark:text-neutral-100">Secure payments</p>
             </div>
-            <p>Stripe powers our billing. Payment methods are tokenized and never stored on SaaSyBase servers.</p>
+            <p>Stripe powers our billing. Payment methods are tokenized and never stored on YOUNG AGE CORPORATION CO., LTD. servers.</p>
             <p className="text-[11px] text-slate-500 dark:text-neutral-500">PCI DSS Level 1 compliant • 3D Secure support • Instant email receipts</p>
           </div>
         </div>

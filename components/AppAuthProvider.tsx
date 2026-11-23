@@ -138,13 +138,13 @@ export default function AppAuthProvider({
       localization={{
         signIn: {
           start: {
-            title: `Sign in to ${process.env.NEXT_PUBLIC_SITE_NAME || 'SaaSyBase'}`,
+            title: `Sign in to ${process.env.NEXT_PUBLIC_SITE_NAME || 'YOUNG AGE CORPORATION CO., LTD.'}`,
           },
         },
         signUp: {
           start: {
             title: 'Create your account',
-            subtitle: `to continue to ${process.env.NEXT_PUBLIC_SITE_NAME || 'SaaSyBase'}`,
+            subtitle: `to continue to ${process.env.NEXT_PUBLIC_SITE_NAME || 'YOUNG AGE CORPORATION CO., LTD.'}`,
           },
         },
         organizationSwitcher: {

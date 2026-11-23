@@ -20,7 +20,7 @@ interface PageProps {
 export async function generateMetadata() {
   return buildDashboardMetadata({
     page: 'Onboarding',
-    description: 'Complete personalized setup steps to unlock the full SaaSyBase experience for your workspace.',
+    description: 'Complete personalized setup steps to unlock the full YOUNG AGE CORPORATION CO., LTD. experience for your workspace.',
     audience: 'user',
   });
 }

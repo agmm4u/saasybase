@@ -293,10 +293,10 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         summary: 'Read site branding info',
         description: 'Returns the configured site name and default token label for lightweight client-side branding and copy.',
         access: 'public',
-        notes: ['Public endpoint (no auth). Falls back to NEXT_PUBLIC_SITE_NAME or SaaSyBase when the site name setting is unavailable.'],
+        notes: ['Public endpoint (no auth). Falls back to NEXT_PUBLIC_SITE_NAME or YOUNG AGE CORPORATION CO., LTD. when the site name setting is unavailable.'],
         rateLimitTier: 'public',
         example: {},
-        response: { siteName: 'SaaSyBase', tokenLabel: 'tokens' }
+        response: { siteName: 'YOUNG AGE CORPORATION CO., LTD.', tokenLabel: 'tokens' }
       },
       {
         method: 'GET',
@@ -2794,7 +2794,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         response: {
           headerLinks: [{ label: 'Pricing', href: '/pricing' }],
           footerLinks: [{ label: 'Privacy', href: '/privacy' }],
-          footerText: 'Built with SaaSyBase',
+          footerText: 'Built with YOUNG AGE CORPORATION CO., LTD.',
           customCss: '.hero { letter-spacing: -0.02em; }',
           customHead: '<meta name="theme-color" content="#0f172a" />',
           customBody: '<script>window.__themeLoaded=true;</script>',
@@ -2827,8 +2827,8 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
           'Returns 429 with Retry-After on rate limit; returns 503 if rate limiter is unavailable.',
         ],
         rateLimitTier: 'admin',
-        example: { headerLinks: [{ label: 'Pricing', href: '/pricing' }], footerLinks: [{ label: 'Privacy', href: '/privacy' }], footerText: 'Built with SaaSyBase', customCss: '.hero { letter-spacing: -0.02em; }', customHead: '<meta name="theme-color" content="#0f172a" />', customBody: '<script>window.__themeLoaded=true;</script>', colorPalette: { light: { accentPrimary: '#c75b12' }, dark: { accentPrimary: '#f59e0b' } } },
-        response: { headerLinks: [{ label: 'Pricing', href: '/pricing' }], footerLinks: [{ label: 'Privacy', href: '/privacy' }], footerText: 'Built with SaaSyBase', customCss: '.hero { letter-spacing: -0.02em; }', customHead: '<meta name="theme-color" content="#0f172a" />', customBody: '<script>window.__themeLoaded=true;</script>', legacySnippet: '', colorPalette: { light: { accentPrimary: '#c75b12' }, dark: { accentPrimary: '#f59e0b' } } }
+        example: { headerLinks: [{ label: 'Pricing', href: '/pricing' }], footerLinks: [{ label: 'Privacy', href: '/privacy' }], footerText: 'Built with YOUNG AGE CORPORATION CO., LTD.', customCss: '.hero { letter-spacing: -0.02em; }', customHead: '<meta name="theme-color" content="#0f172a" />', customBody: '<script>window.__themeLoaded=true;</script>', colorPalette: { light: { accentPrimary: '#c75b12' }, dark: { accentPrimary: '#f59e0b' } } },
+        response: { headerLinks: [{ label: 'Pricing', href: '/pricing' }], footerLinks: [{ label: 'Privacy', href: '/privacy' }], footerText: 'Built with YOUNG AGE CORPORATION CO., LTD.', customCss: '.hero { letter-spacing: -0.02em; }', customHead: '<meta name="theme-color" content="#0f172a" />', customBody: '<script>window.__themeLoaded=true;</script>', legacySnippet: '', colorPalette: { light: { accentPrimary: '#c75b12' }, dark: { accentPrimary: '#f59e0b' } } }
       },
       {
         method: 'GET',
@@ -2843,7 +2843,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         ],
         rateLimitTier: 'admin',
         example: {},
-        response: { _meta: { type: 'saasybase-theme', version: 1, exportedAt: '2026-04-05T12:00:00.000Z', count: 42 }, settings: { FOOTER_TEXT: 'Built with SaaSyBase', CUSTOM_CSS: '.hero { letter-spacing: -0.02em; }', HEADER_LINKS: '[{"label":"Pricing","href":"/pricing"}]' } }
+        response: { _meta: { type: 'saasybase-theme', version: 1, exportedAt: '2026-04-05T12:00:00.000Z', count: 42 }, settings: { FOOTER_TEXT: 'Built with YOUNG AGE CORPORATION CO., LTD.', CUSTOM_CSS: '.hero { letter-spacing: -0.02em; }', HEADER_LINKS: '[{"label":"Pricing","href":"/pricing"}]' } }
       },
       {
         method: 'POST',
@@ -2861,7 +2861,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
           'Returns 400 for invalid envelopes, empty imports, or when no valid theme keys are present.',
         ],
         rateLimitTier: 'admin',
-        example: { _meta: { type: 'saasybase-theme', version: 1 }, settings: { FOOTER_TEXT: 'Built with SaaSyBase', CUSTOM_CSS: '.hero { letter-spacing: -0.02em; }' } },
+        example: { _meta: { type: 'saasybase-theme', version: 1 }, settings: { FOOTER_TEXT: 'Built with YOUNG AGE CORPORATION CO., LTD.', CUSTOM_CSS: '.hero { letter-spacing: -0.02em; }' } },
         response: { imported: 2, skipped: 0 }
       },
     ]
@@ -3010,7 +3010,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         ],
         rateLimitTier: 'admin',
         example: { query: { key: 'SITE_NAME' } },
-        response: { key: 'SITE_NAME', value: 'SaaSyBase' }
+        response: { key: 'SITE_NAME', value: 'YOUNG AGE CORPORATION CO., LTD.' }
       },
       {
         method: 'GET',
@@ -3026,7 +3026,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         ],
         rateLimitTier: 'admin',
         example: {},
-        response: { _meta: { type: 'saasybase-settings', version: 1, exportedAt: '2026-04-05T12:00:00.000Z', count: 128, dbCount: 63, includesDefaults: true, excludesTheme: true, themeExcludedCount: 42 }, settings: { SITE_NAME: 'SaaSyBase', SUPPORT_EMAIL: 'support@example.com', DEFAULT_CURRENCY: 'USD' } }
+        response: { _meta: { type: 'saasybase-settings', version: 1, exportedAt: '2026-04-05T12:00:00.000Z', count: 128, dbCount: 63, includesDefaults: true, excludesTheme: true, themeExcludedCount: 42 }, settings: { SITE_NAME: 'YOUNG AGE CORPORATION CO., LTD.', SUPPORT_EMAIL: 'support@example.com', DEFAULT_CURRENCY: 'USD' } }
       },
       {
         method: 'POST',
@@ -3044,7 +3044,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
           'Returns 400 for invalid envelopes, empty imports, or when the payload exceeds 2000 settings.',
         ],
         rateLimitTier: 'admin',
-        example: { _meta: { type: 'saasybase-settings', version: 1 }, settings: { SITE_NAME: 'SaaSyBase', SUPPORT_EMAIL: 'support@example.com' } },
+        example: { _meta: { type: 'saasybase-settings', version: 1 }, settings: { SITE_NAME: 'YOUNG AGE CORPORATION CO., LTD.', SUPPORT_EMAIL: 'support@example.com' } },
         response: { imported: 2, skippedTheme: 0 }
       },
       {
@@ -3063,8 +3063,8 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
           'DEFAULT_CURRENCY validation: must be a 3-letter ISO code; may return 400 if unsupported by active provider.'
         ],
         rateLimitTier: 'admin',
-        example: { key: 'SITE_NAME', value: 'SaaSyBase' },
-        response: { key: 'SITE_NAME', value: 'SaaSyBase' }
+        example: { key: 'SITE_NAME', value: 'YOUNG AGE CORPORATION CO., LTD.' },
+        response: { key: 'SITE_NAME', value: 'YOUNG AGE CORPORATION CO., LTD.' }
       },
       {
         method: 'PATCH',
@@ -3082,8 +3082,8 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
           'Rate limit: admin-settings:write (limit 60 / 120s).'
         ],
         rateLimitTier: 'admin',
-        example: { updates: [{ key: 'SITE_NAME', value: 'SaaSyBase' }, { key: 'SUPPORT_EMAIL', value: 'support@example.com' }] },
-        response: { settings: [{ key: 'SITE_NAME', value: 'SaaSyBase' }, { key: 'SUPPORT_EMAIL', value: 'support@example.com' }] }
+        example: { updates: [{ key: 'SITE_NAME', value: 'YOUNG AGE CORPORATION CO., LTD.' }, { key: 'SUPPORT_EMAIL', value: 'support@example.com' }] },
+        response: { settings: [{ key: 'SITE_NAME', value: 'YOUNG AGE CORPORATION CO., LTD.' }, { key: 'SUPPORT_EMAIL', value: 'support@example.com' }] }
       },
       {
         method: 'GET',

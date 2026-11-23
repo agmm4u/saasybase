@@ -20,7 +20,7 @@ export function AuthPageShell({
         <div className="relative flex h-full min-h-[28rem] flex-col justify-between">
           <Link href="/" className="inline-flex w-fit items-center gap-2 text-sm font-semibold tracking-wide text-violet-700 dark:text-violet-300">
             <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-xl bg-violet-600 text-white">S</span>
-            SaaSyBase
+            YOUNG AGE CORPORATION CO., LTD.
           </Link>
           <div className="max-w-lg">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-700 dark:text-violet-300">{eyebrow}</p>
@@ -42,7 +42,7 @@ export function AuthPageShell({
         <div className="mb-7 text-center lg:text-left">
           <Link href="/" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-violet-700 dark:text-violet-300 lg:hidden">
             <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-xl bg-violet-600 text-white">S</span>
-            SaaSyBase
+            YOUNG AGE CORPORATION CO., LTD.
           </Link>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">{eyebrow}</p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 dark:text-white">{title}</h2>

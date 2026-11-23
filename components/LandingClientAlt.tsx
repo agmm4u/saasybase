@@ -632,7 +632,7 @@ function DashboardDemo() {
           </div>
 
           <div className="lp-dd-topbar">
-            <span className="lp-dd-topbar-logo">SaasyBase</span>
+            <span className="lp-dd-topbar-logo">YOUNG AGE CORPORATION CO., LTD.</span>
             <div className="lp-dd-topbar-nav" aria-hidden>
               <span className="lp-dd-topbar-nav-active">Dashboard</span>
               <span>Billing</span>
@@ -651,7 +651,7 @@ function DashboardDemo() {
             {/* mobile header – visible only on small screens */}
             <div className="lp-dd-mobile-hdr">
               <FontAwesomeIcon icon={faBars} style={{ fontSize: 14, color: 'var(--lp-dd-nav-text)' }} />
-              <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: '-.3px' }}>SaasyBase</span>
+              <span style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--lp-dd-brand)', letterSpacing: '-.3px' }}>YOUNG AGE CORPORATION CO., LTD.</span>
               <span style={{ marginLeft: 'auto', fontSize: 9, color: 'var(--lp-dd-muted)', fontWeight: 500 }}>Admin Panel</span>
             </div>
             {/* sidebar */}
@@ -3027,7 +3027,7 @@ export default function LandingClientAlt({ isSignedIn }: { isSignedIn: boolean }
               </h1>
 
               <p className="lp-hero-sub">
-                SaaSyBase is more than a boilerplate — it is an AI-friendly SaaS foundation with structured docs (CLAUDE.md, AGENTS.md, PATTERNS.md) that let any LLM understand the full codebase. Clerk, Better Auth, or NextAuth behind one interface, Stripe or Paystack or Paddle or Razorpay behind one payment layer, 500+ automated tests across 140+ test files plus manual regression coverage, optional Infisical or Doppler bootstrap, security defaults, and a usage meter you can rename to anything. Prompt your way to production.
+                YOUNG AGE CORPORATION CO., LTD. is more than a boilerplate — it is an AI-friendly SaaS foundation with structured docs (CLAUDE.md, AGENTS.md, PATTERNS.md) that let any LLM understand the full codebase. Clerk, Better Auth, or NextAuth behind one interface, Stripe or Paystack or Paddle or Razorpay behind one payment layer, 500+ automated tests across 140+ test files plus manual regression coverage, optional Infisical or Doppler bootstrap, security defaults, and a usage meter you can rename to anything. Prompt your way to production.
               </p>
 
               <div className="lp-cta-row">
@@ -3142,7 +3142,7 @@ export default function LandingClientAlt({ isSignedIn }: { isSignedIn: boolean }
           <div className="lp-section-tag">What ships on day one</div>
           <h2 className="lp-section-h2">Launch with billing, users, and ops already working.</h2>
           <p className="lp-section-sub lp-section-sub-sm" style={{ marginBottom: 40 }}>
-            Skip months of stitching tools together. SaaSyBase gives you the admin surface, payment visibility, and operational control a real SaaS product needs from the start.
+            Skip months of stitching tools together. YOUNG AGE CORPORATION CO., LTD. gives you the admin surface, payment visibility, and operational control a real SaaS product needs from the start.
           </p>
           </div>
           {mounted && (
@@ -3205,7 +3205,7 @@ export default function LandingClientAlt({ isSignedIn }: { isSignedIn: boolean }
               <FeatureCard key={f.title} {...f} delay={i * 60} />
             ))}
           </div>
-          <div className="lp-tech-icons lp-marquee-outer" aria-label="Technology used in SaaSyBase">
+          <div className="lp-tech-icons lp-marquee-outer" aria-label="Technology used in YOUNG AGE CORPORATION CO., LTD.">
             <div className="lp-marquee-inner lp-tech-marquee-inner">
               {TECH_STACK_ICONS.map((tech, index) => (
                 <span key={`tech-primary-${tech.label}-${index}`} className="lp-tech-icon" title={tech.label} aria-label={tech.label}>
@@ -3343,7 +3343,7 @@ export default function LandingClientAlt({ isSignedIn }: { isSignedIn: boolean }
             <div className="lp-section-tag">Ownership & Usage</div>
             <h2 className="lp-section-h2" style={{ marginBottom: 12 }}>Built for builders. Fair for everyone.</h2>
             <p className="lp-section-sub lp-section-sub-sm" style={{ marginTop: 14, marginBottom: 32 }}>
-              SaaSyBase has a simple licensing model: it&apos;s free for any project you build for yourself, and there&apos;s a commercial license for agency or client work. No royalties, no usage fees, just a one-time fee.
+              YOUNG AGE CORPORATION CO., LTD. has a simple licensing model: it&apos;s free for any project you build for yourself, and there&apos;s a commercial license for agency or client work. No royalties, no usage fees, just a one-time fee.
             </p>
             <div className="lp-licensing-main-card">
               <div className="lp-licensing-side free-side">
@@ -3395,7 +3395,7 @@ export default function LandingClientAlt({ isSignedIn }: { isSignedIn: boolean }
           <h2 className="lp-section-h2" style={{ marginBottom: 12 }}>Your SaaS deserves a<br />solid foundation.</h2>
           <p className="lp-cta-desc">
             Stop rebuilding the same auth &amp; billing infrastructure.<br />
-            Start with SaasyBase and ship what actually matters.
+            Start with YOUNG AGE CORPORATION CO., LTD. and ship what actually matters.
           </p>
           <div className="lp-cta-row" style={{ marginTop: 0 }}>
             {isSignedIn ? (
