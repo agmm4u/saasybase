@@ -81,6 +81,11 @@ describe('plan provider safety', () => {
   it('persists seeded short descriptions for plans that define them', async () => {
     await ensurePlansSeeded();
 
+    expect(prismaMock.plan.updateMany).toHaveBeenCalledWith({
+      where: { name: { in: ['Quarterly Pro'] }, active: true },
+      data: { active: false },
+    });
+
     expect(prismaMock.plan.upsert).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { name: 'Weekly Pro' },

@@ -171,12 +171,11 @@ export function resolveSeededPlanPriceForProvider(
 }
 
 export async function ensurePlansSeeded() {
-  const currentNames = PLAN_DEFINITIONS.map(p => p.name);
-  
-  // Deactivate plans that are no longer in the definitions
+  // Retire only the old built-in plan that was replaced. Admin-created plans
+  // are independent catalog entries and must remain active.
   await prisma.plan.updateMany({
     where: {
-      name: { notIn: currentNames },
+      name: { in: ['Quarterly Pro'] },
       active: true,
     },
     data: { active: false }

@@ -24,6 +24,7 @@ import { adminOnlyPublicSiteMode } from '@/lib/admin-only-public-site';
 import { redirect } from 'next/navigation';
 import { buildBreadcrumbSchema, buildWebPageSchema } from '@/lib/schema';
 import { resolveDemoReadOnlyMode } from '@/lib/demo-readonly';
+import { ensurePlansSeeded } from '@/lib/plans';
 
 export async function generateMetadata(): Promise<Metadata> {
   const [siteName, seoSettings] = await Promise.all([
@@ -62,6 +63,8 @@ export default async function PricingPage() {
   if (adminOnlyPublicSiteMode) {
     redirect('/');
   }
+
+  await ensurePlansSeeded();
 
   const { userId, orgId } = await authService.getSession();
   const activeCurrency = await getActiveCurrencyAsync();
