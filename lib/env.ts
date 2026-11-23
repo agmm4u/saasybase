@@ -6,9 +6,9 @@ const envSchema = z
     // Database
     DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
 
-    // Clerk Authentication
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1, 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is required'),
-    CLERK_SECRET_KEY: z.string().min(1, 'CLERK_SECRET_KEY is required'),
+    // Clerk is optional when another authentication provider is active.
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().optional(),
+    CLERK_SECRET_KEY: z.string().optional(),
 
     // Stripe Payment Processing
     STRIPE_SECRET_KEY: z.string().min(1, 'STRIPE_SECRET_KEY is required'),
@@ -74,6 +74,12 @@ export function validateStripeEnv() {
 
 export function validateClerkEnv() {
   const env = validateEnv();
+  if (!env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    throw new Error('NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is required when Clerk authentication is enabled');
+  }
+  if (!env.CLERK_SECRET_KEY) {
+    throw new Error('CLERK_SECRET_KEY is required when Clerk authentication is enabled');
+  }
   return {
     publishableKey: env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     secretKey: env.CLERK_SECRET_KEY,
