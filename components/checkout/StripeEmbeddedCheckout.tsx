@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import type { CheckoutComponentProps } from './registry';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { buildStripePaymentReturnUrl } from '@/lib/stripe-return-url';
 
 // Ensure we only load Stripe once
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -26,7 +27,7 @@ function StripeCheckoutForm({ returnUrl }: { returnUrl?: string }) {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: returnUrl || `${window.location.origin}/dashboard?purchase=success`,
+                return_url: returnUrl || buildStripePaymentReturnUrl(window.location.origin),
             },
         });
 

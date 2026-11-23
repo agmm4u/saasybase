@@ -763,7 +763,12 @@ export default function PricingCard({ plan, activeRecurringPlansByFamily = creat
           const stripe = await loadStripe(stripeKey);
           if (!stripe) throw new Error('Failed to load Stripe');
 
-          const { error: scaError, paymentIntent } = await stripe.confirmCardPayment(result.clientSecret as string);
+          const { buildStripePaymentReturnUrl } = await import('@/lib/stripe-return-url');
+          const returnUrl = buildStripePaymentReturnUrl(window.location.origin, result.clientSecret);
+          const { error: scaError, paymentIntent } = await stripe.confirmCardPayment(
+            result.clientSecret as string,
+            { return_url: returnUrl },
+          );
           if (scaError) {
             const scaMessage = scaError.message || 'Payment authentication failed.';
             setIfMounted(setProrationError)(scaMessage);
