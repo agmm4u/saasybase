@@ -93,7 +93,6 @@ export const AUTH_PROVIDER_REGISTRY: Record<string, AuthProviderConfig> = {
       'organizations',
       'session_management',
       'oauth',
-      'magic_link',
     ],
   },
 

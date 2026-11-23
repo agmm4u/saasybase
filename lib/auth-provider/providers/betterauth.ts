@@ -178,7 +178,6 @@ export class BetterAuthProvider implements AuthProvider {
     'organizations',
     'session_management',
     'oauth',
-    'magic_link',
   ];
 
   supportsFeature(feature: AuthProviderFeature): boolean {

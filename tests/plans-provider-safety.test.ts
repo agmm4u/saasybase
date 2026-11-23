@@ -36,6 +36,19 @@ describe('plan provider safety', () => {
     process.env = { ...originalEnv };
   });
 
+  it('uses the requested $30 per day rate across seeded plan durations', () => {
+    const prices = Object.fromEntries(PLAN_DEFINITIONS.map((plan) => [plan.id, plan.priceCents]));
+    expect(prices).toEqual({
+      '24H': 3000,
+      '7D': 21000,
+      '1M_OT': 90000,
+      '1D_SUB': 3000,
+      '1W_SUB': 21000,
+      '1M_SUB': 90000,
+      '1Y_SUB': 1095000,
+    });
+  });
+
   it('prefers the provider-mapped seeded price over an incompatible env placeholder', () => {
     const plan = PLAN_DEFINITIONS.find((entry) => entry.id === '24H');
     expect(plan).toBeTruthy();
@@ -103,11 +116,11 @@ describe('plan provider safety', () => {
         where: { name: 'Daily Pro' },
         update: expect.objectContaining({
           recurringInterval: 'day',
-          priceCents: 100,
+          priceCents: 3000,
         }),
         create: expect.objectContaining({
           recurringInterval: 'day',
-          priceCents: 100,
+          priceCents: 3000,
         }),
       })
     );

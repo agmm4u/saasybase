@@ -11,7 +11,7 @@ import { rateLimit, getClientIP, RATE_LIMITS } from '@/lib/rateLimit';
 import { validatePasswordStrength } from '@/lib/password-policy';
 import { validateAndFormatPersonName } from '@/lib/name-validation';
 import { Logger } from '@/lib/logger';
-import { resolveRequestOrigin, resolveSameOriginUrl } from '@/lib/request-origin';
+import { resolveSameOriginUrl } from '@/lib/request-origin';
 import { apiSchemas, validateInput } from '@/lib/validation';
 
 function isBetterAuthProviderEnabled() {
@@ -24,10 +24,6 @@ function normalizeCallbackUrl(request: NextRequest, callbackURL?: string) {
   }
 
   return resolveSameOriginUrl(request, callbackURL);
-}
-
-function getRequestOrigin(request: NextRequest) {
-  return resolveRequestOrigin(request);
 }
 
 export async function POST(request: NextRequest) {
@@ -110,32 +106,29 @@ export async function POST(request: NextRequest) {
         },
       });
 
-      return NextResponse.json({ email, requiresVerification: true }, { status: 201 });
+      await prisma.user.update({
+        where: { email },
+        data: { emailVerified: new Date(), emailVerifiedBool: true },
+      });
+
+      return NextResponse.json({ email, requiresVerification: false }, { status: 201 });
     }
 
-    // Create the user (emailVerified: null — require verification)
+    // This provider lane now uses direct email/password signup without email links.
     const { hashPassword } = await import('@/lib/nextauth.config');
     const hashed = await hashPassword(password);
     const user = await prisma.user.create({
       data: {
         email,
-        name: validatedName.fullName,
+        name: displayName,
         password: hashed,
         role: 'USER',
-        emailVerified: null,
+        emailVerified: new Date(),
+        emailVerifiedBool: true,
       },
     });
 
-    // Send verification email (async, non-blocking)
-    const { sendNextAuthVerificationEmail } = await import('@/lib/nextauth-email-verification');
-    sendNextAuthVerificationEmail({
-      userId: user.id,
-      email,
-      name: validatedName.fullName,
-      baseUrl: getRequestOrigin(request),
-    }).catch(() => {});
-
-    return NextResponse.json({ id: user.id, email: user.email, requiresVerification: true }, { status: 201 });
+    return NextResponse.json({ id: user.id, email: user.email, requiresVerification: false }, { status: 201 });
   } catch (err) {
     Logger.error('Registration failed', err);
     return NextResponse.json({ error: 'Registration failed' }, { status: 500 });

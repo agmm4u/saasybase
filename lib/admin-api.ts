@@ -76,13 +76,13 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
   {
     id: 'auth',
     title: 'Authentication',
-    description: 'Register, sign in, verify email, and reset passwords across the self-hosted auth lanes. Availability depends on the active auth provider for each route.',
+    description: 'Create an account and sign in with an email address and password. Availability depends on the active auth provider.',
     endpoints: [
       {
         method: 'POST',
         path: '/api/auth/register',
         summary: 'Register a new user',
-        description: 'Creates a new self-hosted auth user with email and password, stores a hashed password, and sends an email verification link.',
+        description: 'Creates a new self-hosted auth user with email and password. The account is immediately available for password sign-in.',
         access: 'public',
         body: {
           email: 'string — required; valid email',
@@ -98,7 +98,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         ],
         rateLimitTier: 'public',
         example: { email: 'user@example.com', password: 'secureP@ss1', name: 'Jane Doe' },
-        response: { id: 'user_abc123', email: 'user@example.com', requiresVerification: true }
+        response: { id: 'user_abc123', email: 'user@example.com', requiresVerification: false }
       },
       {
         method: 'POST',
@@ -123,7 +123,7 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         method: 'POST',
         path: '/api/auth/login-status',
         summary: 'Check whether credentials can sign in',
-        description: 'Validates email/password without creating a session. Used to detect unverified-email accounts before attempting full sign-in.',
+        description: 'Checks whether an email and password can be used to sign in without creating a session.',
         access: 'public',
         body: {
           email: 'string — required',
@@ -131,33 +131,11 @@ const CURATED_CATEGORIES: AdminApiCategory[] = [
         },
         notes: [
           'Rate limit: AUTH tier (strict).',
-          'Returns 403 with code EMAIL_NOT_VERIFIED when credentials are correct but email verification is still pending.',
+          'Better Auth accounts can sign in directly after registration; the NextAuth lane may still enforce verification for existing accounts.',
         ],
         rateLimitTier: 'public',
         example: { email: 'user@example.com', password: 'secureP@ss1' },
         response: { ok: true, canSignIn: true }
-      },
-      {
-        method: 'POST',
-        path: '/api/auth/magic-link',
-        summary: 'Request Better Auth magic-link sign-in',
-        description: 'Accepts an email address and asks Better Auth to send a magic-link sign-in email when that user exists and the Better Auth provider is active.',
-        access: 'public',
-        body: {
-          email: 'string — required; valid email',
-          callbackURL: 'string? — optional same-origin callback after sign-in',
-          errorCallbackURL: 'string? — optional same-origin error redirect',
-          newUserCallbackURL: 'string? — optional same-origin redirect for new-user flow',
-        },
-        notes: [
-          'Rate limit: AUTH tier (strict).',
-          'Only available when AUTH_PROVIDER=betterauth; other providers return 400 MAGIC_LINK_UNAVAILABLE.',
-          'Returns the same success message whether or not the user exists to reduce account enumeration.',
-          'Callback URLs are normalized to same-origin values; foreign origins are ignored.',
-        ],
-        rateLimitTier: 'public',
-        example: { email: 'user@example.com', callbackURL: '/dashboard' },
-        response: { message: 'If that email is eligible, a sign-in link has been sent.' }
       },
       {
         method: 'POST',

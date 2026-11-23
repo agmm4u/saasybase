@@ -87,7 +87,7 @@ const DEMO_SCROLL_START_DELAY_MS = 250;
 
 const FEATURES: Array<{ icon: IconDefinition; title: string; desc: string }> = [
   { icon: faCreditCard,   title: 'Multi-Provider Payments',  desc: 'Stripe, Paystack, Razorpay, and Paddle — all wired up. Switch providers with one env var.' },
-  { icon: faLock,         title: 'Auth & User Management',   desc: 'Clerk-powered authentication out of the box. Magic links, OAuth, MFA — all handled.' },
+  { icon: faLock,         title: 'Auth & User Management',   desc: 'Create an account and sign in with your email and password.' },
   { icon: faBuilding,     title: 'Teams & Organizations',    desc: 'Built-in multi-tenant support with role-based access. Invite members, manage seats.' },
   { icon: faTag,          title: 'Coupons & Discounts',      desc: 'Create one-time, forever, or repeating discount codes. Native provider mapping included.' },
   { icon: faGauge,        title: 'Admin Dashboard',          desc: 'Full analytics, user management, revenue overview, and subscription controls.' },

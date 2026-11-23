@@ -119,6 +119,32 @@ describe('auth login-status route', () => {
     });
   });
 
+  it('allows Better Auth email and password sign-in without email-link verification', async () => {
+    process.env.AUTH_PROVIDER = 'betterauth';
+    prismaMock.user.findUnique.mockResolvedValue({
+      id: 'user_ba_unverified',
+      email: 'account@example.com',
+      name: 'Account User',
+      password: 'hashed',
+      emailVerified: null,
+      emailVerifiedBool: false,
+      accounts: [],
+    });
+    compareMock.mockResolvedValue(true);
+
+    const req = new NextRequest('http://localhost/api/auth/login-status', {
+      method: 'POST',
+      body: JSON.stringify({ email: 'account@example.com', password: 'secret' }),
+      headers: { 'content-type': 'application/json' },
+    });
+
+    const res = await POST(req);
+    const body = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(body.canSignIn).toBe(true);
+  });
+
   it('syncs Better Auth verification state for legacy NextAuth-verified users', async () => {
     process.env.AUTH_PROVIDER = 'betterauth';
     prismaMock.user.findUnique.mockResolvedValue({

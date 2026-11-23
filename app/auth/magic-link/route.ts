@@ -1,16 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { resolveRequestOrigin } from '@/lib/request-origin';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
-  const source = new URL(request.url);
-  const target = new URL('/api/auth/callback/nodemailer', resolveRequestOrigin(request));
-
-  for (const key of ['token', 'email', 'callbackUrl']) {
-    const value = source.searchParams.get(key);
-    if (value) {
-      target.searchParams.set(key, value);
-    }
-  }
-
-  return NextResponse.redirect(target);
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Email-link sign-in is disabled. Use your email and password.' },
+    { status: 410 },
+  );
 }

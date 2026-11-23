@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { betterAuthClient } from '@/lib/better-auth-client';
 import { useAuthInstance, useAuthSession, useAuthUser } from './hooks';
 
-type AuthModalMode = 'signin' | 'signup' | 'forgot-password' | 'reset-password' | 'magic-link';
+type AuthModalMode = 'signin' | 'signup' | 'forgot-password' | 'reset-password';
 
 type OAuthProviderId = 'github' | 'google';
 
@@ -199,7 +199,7 @@ function readUrlMode(pathnameFallback: AuthModalMode): AuthModalMode {
 
   const params = new URLSearchParams(window.location.search);
   const mode = params.get('mode');
-  if (mode === 'forgot-password' || mode === 'reset-password' || mode === 'signup' || mode === 'signin' || mode === 'magic-link') {
+  if (mode === 'forgot-password' || mode === 'reset-password' || mode === 'signup' || mode === 'signin') {
     return mode;
   }
 
@@ -223,18 +223,6 @@ function readResetState() {
       ? 'This password reset link is invalid or has expired. Request a new one.'
       : null,
   };
-}
-
-function buildMagicLinkErrorUrl(options: {
-  signInUrl?: string;
-  path?: string;
-  redirectUrl: string;
-  email?: string;
-}) {
-  return withQueryParams(getSignInEntryUrl(options.signInUrl, options.path), {
-    redirect_url: options.redirectUrl,
-    email: options.email,
-  });
 }
 
 function maybeRedirect(result: AuthActionResult, fallbackUrl: string) {
@@ -537,7 +525,6 @@ function SignInForm({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(initialQueryState.error);
   const [success, setSuccess] = useState<string | null>(initialQueryState.success);
-  const [verificationEmail, setVerificationEmail] = useState<string | null>(initialQueryState.verificationEmail);
   const redirectUrl = getRedirectTarget(forceRedirectUrl, fallbackRedirectUrl);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -550,10 +537,6 @@ function SignInForm({
       const { response: preflight, data: preflightData } = await runCredentialPreflight(email, password);
 
       if (!preflight.ok) {
-        if (preflightData?.code === 'EMAIL_NOT_VERIFIED') {
-          setVerificationEmail(email);
-        }
-
         setPending(false);
         setError(preflightData?.error || 'Unable to sign in.');
         return;
@@ -574,39 +557,11 @@ function SignInForm({
     setPending(false);
 
     if (result.error) {
-      if (result.error.code === 'EMAIL_NOT_VERIFIED') {
-        setVerificationEmail(email);
-      }
       setError(getErrorMessage(result.error, 'Unable to sign in.'));
       return;
     }
 
     maybeRedirect(result, redirectUrl);
-  }
-
-  async function resendVerification() {
-    if (!verificationEmail) {
-      return;
-    }
-
-    setPending(true);
-    setError(null);
-    const redirectUrl = getRedirectTarget(forceRedirectUrl, fallbackRedirectUrl);
-    const result = await betterAuthClient.sendVerificationEmail({
-      email: verificationEmail,
-      callbackURL: toAbsoluteUrl(buildVerificationSuccessUrl({
-        path,
-        redirectUrl,
-      })),
-    }) as AuthActionResult;
-    setPending(false);
-
-    if (result.error) {
-      setError(getErrorMessage(result.error, 'Unable to resend verification email.'));
-      return;
-    }
-
-    setSuccess('Verification email sent. Check your inbox.');
   }
 
   const content = (
@@ -635,15 +590,7 @@ function SignInForm({
           />
         </Field>
 
-        <div className="flex items-center justify-between gap-4 text-sm">
-          <button
-            type="button"
-            onClick={() => onSwitch ? onSwitch('forgot-password') : (window.location.href = '/forgot-password')}
-            className={authAccentLinkClass}
-          >
-            Forgot password?
-          </button>
-
+        <div className="flex items-center justify-end gap-4 text-sm">
           {onSwitch ? (
             <button
               type="button"
@@ -667,121 +614,8 @@ function SignInForm({
           {pending ? 'Signing in...' : 'Sign in'}
         </button>
 
-        <button
-          type="button"
-          onClick={() => onSwitch ? onSwitch('magic-link') : (window.location.href = `${getBasePath(path, '/sign-in')}?mode=magic-link`)}
-          className={authSecondaryButtonClass}
-        >
-          Email me a magic link
-        </button>
       </form>
 
-      <OAuthButtons
-        callbackURL={redirectUrl}
-        onError={setError}
-        onPendingChange={setPending}
-      />
-
-      {verificationEmail ? (
-        <div className={authPanelClass}>
-          <p>Email verification is still required for this account.</p>
-          <button
-            type="button"
-            onClick={resendVerification}
-            disabled={pending}
-            className={`${authAccentLinkClass} mt-3 disabled:opacity-60`}
-          >
-            Resend verification email
-          </button>
-        </div>
-      ) : null}
-    </div>
-  );
-
-  return embedded ? content : <AuthCard>{content}</AuthCard>;
-}
-
-function MagicLinkForm({
-  forceRedirectUrl,
-  fallbackRedirectUrl,
-  path,
-  embedded = false,
-  onSwitch,
-}: {
-  forceRedirectUrl?: string;
-  fallbackRedirectUrl?: string;
-  path?: string;
-  embedded?: boolean;
-  onSwitch?: (mode: AuthModalMode) => void;
-}) {
-  const [email, setEmail] = useState('');
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setPending(true);
-    setError(null);
-    setSuccess(null);
-
-    const redirectUrl = getRedirectTarget(forceRedirectUrl, fallbackRedirectUrl);
-    const response = await fetch('/api/auth/magic-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        callbackURL: toAbsoluteUrl(redirectUrl),
-        errorCallbackURL: toAbsoluteUrl(buildMagicLinkErrorUrl({ path, redirectUrl, email })),
-      }),
-    });
-    const result = await response.json().catch(() => null) as { error?: string; message?: string } | null;
-
-    setPending(false);
-
-    if (!response.ok) {
-      setError(result?.error || 'Unable to send a magic link right now.');
-      return;
-    }
-
-    setSuccess(result?.message || 'If that email is eligible, a sign-in link has been sent.');
-  }
-
-  const content = (
-    <div className={authContentClass}>
-      <div className="space-y-1.5">
-        <h2 className={authHeadingClass}>Sign in with a magic link</h2>
-        <p className={authSubtitleClass}>Enter your email and we will send you a secure one-time sign-in link.</p>
-      </div>
-
-      {error ? <Message tone="error">{error}</Message> : null}
-      {success ? <Message tone="success">{success}</Message> : null}
-
-      {!success ? (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Field label="Email address">
-            <Input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
-          </Field>
-
-          <button
-            type="submit"
-            disabled={pending}
-            className={authPrimaryButtonClass}
-          >
-            {pending ? 'Sending...' : 'Send magic link'}
-          </button>
-        </form>
-      ) : null}
-
-      <button
-        type="button"
-        onClick={() => onSwitch ? onSwitch('signin') : (window.location.href = getBasePath(path, '/sign-in'))}
-        className={`w-full text-center text-sm font-medium ${authAccentLinkClass}`}
-      >
-        Back to sign in with password
-      </button>
     </div>
   );
 
@@ -801,56 +635,49 @@ function SignUpForm({
   embedded?: boolean;
   onSwitch?: (mode: AuthModalMode) => void;
 }) {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const redirectUrl = getRedirectTarget(forceRedirectUrl, fallbackRedirectUrl || '/dashboard/onboarding');
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
     setError(null);
-    setSuccess(null);
 
-    const verificationSuccessUrl = buildVerificationSuccessUrl({
-      signInUrl,
-      redirectUrl,
-    });
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        firstName,
-        lastName,
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const result = await response.json().catch(() => null) as { error?: string } | null;
+
+      if (!response.ok) {
+        setError(result?.error || 'Unable to create account.');
+        return;
+      }
+
+      const signInResult = await betterAuthClient.signIn.email({
         email,
         password,
-        callbackURL: toAbsoluteUrl(verificationSuccessUrl),
-      }),
-    });
-    const result = await response.json().catch(() => null) as { error?: string } | null;
+        callbackURL: redirectUrl,
+        rememberMe: true,
+      }) as AuthActionResult;
 
-    setPending(false);
+      if (signInResult.error) {
+        setError('Your account was created. Sign in with your email and password to continue.');
+        return;
+      }
 
-    if (!response.ok) {
-      setError(result?.error || 'Unable to create account.');
-      return;
+      maybeRedirect(signInResult, redirectUrl);
+    } catch {
+      setError('Account creation could not be completed. Try again or sign in if the account was created.');
+    } finally {
+      setPending(false);
     }
-
-    const nextUrl = buildVerificationCheckEmailUrl({
-      signInUrl,
-      redirectUrl,
-      email,
-    });
-
-    setSuccess('Verification link sent. Redirecting...');
-    window.location.href = nextUrl;
   }
 
   const content = (
@@ -861,19 +688,7 @@ function SignUpForm({
       </div>
 
       {error ? <Message tone="error">{error}</Message> : null}
-      {success ? <Message tone="success">{success}</Message> : null}
-
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="First name">
-            <Input value={firstName} onChange={(event) => setFirstName(event.target.value)} required />
-          </Field>
-
-          <Field label="Last name">
-            <Input value={lastName} onChange={(event) => setLastName(event.target.value)} required />
-          </Field>
-        </div>
-
         <Field label="Email address">
           <Input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
         </Field>
@@ -897,13 +712,6 @@ function SignUpForm({
           {pending ? 'Creating account...' : 'Create account'}
         </button>
       </form>
-
-      <OAuthButtons
-        callbackURL={redirectUrl}
-        requestSignUp
-        onError={setError}
-        onPendingChange={setPending}
-      />
 
       {onSwitch ? (
         <p className={authSubtitleClass}>
@@ -1151,8 +959,6 @@ function AuthModalShell({
   let content: React.ReactNode;
   if (mode === 'signup') {
     content = <SignUpForm embedded signInUrl="/sign-in" onSwitch={onSwitch} />;
-  } else if (mode === 'magic-link') {
-    content = <MagicLinkForm embedded onSwitch={onSwitch} />;
   } else if (mode === 'forgot-password') {
     content = <ForgotPasswordForm embedded onSwitch={onSwitch} />;
   } else if (mode === 'reset-password') {
@@ -1198,10 +1004,6 @@ export function AuthSignIn({
 
   if (mode === 'forgot-password') {
     return <ForgotPasswordForm path={path} />;
-  }
-
-  if (mode === 'magic-link') {
-    return <MagicLinkForm path={path} forceRedirectUrl={forceRedirectUrl} fallbackRedirectUrl={fallbackRedirectUrl} />;
   }
 
   if (mode === 'reset-password') {

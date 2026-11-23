@@ -118,17 +118,10 @@ describe('Better Auth route delegation regressions', () => {
     expect(response).toBe(delegatedResponse);
   });
 
-  it('delegates magic-link verification through the explicit verify route', async () => {
-    const delegatedResponse = new Response(null, {
-      status: 302,
-      headers: { location: '/dashboard' },
-    });
-    getHandlerMock.mockResolvedValueOnce(delegatedResponse);
+  it('disables passwordless magic-link verification', async () => {
+    const response = await magicLinkVerifyGet();
 
-    const request = new NextRequest('http://localhost/api/auth/magic-link/verify?token=ml_123&callbackURL=http%3A%2F%2Flocalhost%3A3000%2Fdashboard');
-    const response = await magicLinkVerifyGet(request);
-
-    expect(getHandlerMock).toHaveBeenCalledWith(request);
-    expect(response).toBe(delegatedResponse);
+    expect(response.status).toBe(410);
+    expect(getHandlerMock).not.toHaveBeenCalled();
   });
 });

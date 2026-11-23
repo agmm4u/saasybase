@@ -88,7 +88,7 @@ const ESLINT_LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25
 
 const FEATURES: Array<{ icon: IconDefinition; title: string; desc: string; tone: SurfaceTone }> = [
   { icon: faCreditCard,   title: 'Multi-Provider Payments',  desc: 'Stripe, Paystack, Razorpay, and Paddle are already wired behind one payment interface.', tone: 'meter' },
-  { icon: faLock,         title: 'Auth & User Management',   desc: 'Clerk, Better Auth, and NextAuth sit behind one app boundary, with sessions, OAuth, and provider-specific magic links already handled.', tone: 'auth' },
+  { icon: faLock,         title: 'Auth & User Management',   desc: 'Create an account and sign in with your email and password, backed by secure sessions.', tone: 'auth' },
   { icon: faBuilding,     title: 'Teams & Organizations',    desc: 'Built-in multi-tenant support with seats, invites, and role-based access already in place.', tone: 'security' },
   { icon: faTag,          title: 'Coupons & Promotions',      desc: 'Create one-time, forever, or repeating discount codes with provider mapping already done.', tone: 'meter' },
   { icon: faGauge,        title: 'Admin Dashboard',          desc: 'Analytics, user management, revenue overview, and subscription controls are already connected.', tone: 'tests' },

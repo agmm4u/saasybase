@@ -1,14 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-function isBetterAuthProviderEnabled() {
-  return process.env.AUTH_PROVIDER === 'betterauth';
-}
-
-export async function GET(request: NextRequest) {
-  if (!isBetterAuthProviderEnabled()) {
-    return NextResponse.json({ error: 'Not Found' }, { status: 404 });
-  }
-
-  const { betterAuthNextJsHandler } = await import('@/lib/better-auth');
-  return betterAuthNextJsHandler.GET(request);
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Email-link sign-in is disabled. Use your email and password.' },
+    { status: 410 },
+  );
 }

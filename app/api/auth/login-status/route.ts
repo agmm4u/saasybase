@@ -217,7 +217,7 @@ export async function POST(request: NextRequest) {
       ? Boolean(user.emailVerifiedBool || user.emailVerified)
       : Boolean(user.emailVerified);
 
-    if (emailVerified) {
+    if (isBetterAuth || emailVerified) {
       return NextResponse.json({ ok: true, canSignIn: true });
     }
 

@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import { prismaAdapter } from '@better-auth/prisma-adapter';
 import { betterAuth, type BetterAuthOptions } from 'better-auth';
 import { nextCookies, toNextJsHandler } from 'better-auth/next-js';
-import { magicLink, organization } from 'better-auth/plugins';
+import { organization } from 'better-auth/plugins';
 import { BETTER_AUTH_BASE_PATH } from '@/lib/better-auth-shared';
 import { sendEmail } from '@/lib/email';
 import { Logger } from '@/lib/logger';
@@ -321,13 +321,13 @@ export const betterAuthConfig = {
 
       await sendWelcomeIfNotSent(user.id, user.email).catch(() => {});
     },
-    sendOnSignUp: true,
-    sendOnSignIn: true,
+    sendOnSignUp: false,
+    sendOnSignIn: false,
   },
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
-    autoSignIn: true,
+    requireEmailVerification: false,
+    autoSignIn: false,
     password: {
       hash: async (password) => bcrypt.hash(password, 12),
       verify: async ({ password, hash }) => bcrypt.compare(password, hash),
@@ -346,24 +346,6 @@ export const betterAuthConfig = {
   socialProviders: buildSocialProviders(),
   plugins: [
     nextCookies(),
-    magicLink({
-      disableSignUp: true,
-      sendMagicLink: async ({ email, url }) => {
-        const user = await prisma.user.findUnique({
-          where: { email: email.toLowerCase().trim() },
-          select: { id: true, name: true },
-        });
-
-        await sendTemplatedAuthEmail({
-          to: email,
-          userId: user?.id,
-          templateKey: 'magic_link',
-          subject: 'Your sign-in link',
-          actionUrl: url,
-          name: user?.name,
-        });
-      },
-    }),
     organization({
       allowUserToCreateOrganization: true,
       membershipLimit: (_user, activeOrganization) => {
